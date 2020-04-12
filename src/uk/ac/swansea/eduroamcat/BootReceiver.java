@@ -19,7 +19,7 @@ public class BootReceiver extends BroadcastReceiver {
         AlarmManager alarmMgr;
         Intent intentnew = new Intent(context, EduroamCATService.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intentnew, 0);
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                     SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,

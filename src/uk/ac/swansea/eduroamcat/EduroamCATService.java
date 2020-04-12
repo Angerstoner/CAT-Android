@@ -6,14 +6,12 @@
 
 package uk.ac.swansea.eduroamcat;
 
-import android.app.Activity;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 /**
  * Check status of eduroam profile
@@ -40,11 +38,12 @@ public class EduroamCATService extends IntentService {
     }
 
     //notifcy user using a status bar notificaiton
-    public static void notifyUser(Context context,int mId)
-    {
-        if (mId<1) { mId=1; }
-        int nTitle=R.string.notification_title_connected;
-        int nText=R.string.notification_message_connected;
+    public static void notifyUser(Context context, int mId) {
+        if (mId < 1) {
+            mId = 1;
+        }
+        int nTitle = R.string.notification_title_connected;
+        int nText = R.string.notification_message_connected;
 
         switch (mId) {
             case 1:
@@ -59,7 +58,7 @@ public class EduroamCATService extends IntentService {
         Intent intent = new Intent(context, eduroamCAT.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher)
@@ -72,7 +71,7 @@ public class EduroamCATService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            notifyUser(getApplicationContext(),1);
+            notifyUser(getApplicationContext(), 1);
 
         }
         eduroamCAT.debug("cat service started");
