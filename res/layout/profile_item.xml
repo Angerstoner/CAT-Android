@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/itemlayout"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:padding="6dip">
+    android:id="@+id/itemlayout"
+    android:padding="6dip" >
 
     <TextView
         android:id="@+id/firstLine"
@@ -13,44 +13,44 @@
         android:layout_above="@+id/secondLine"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/icon"
         android:gravity="center_vertical"
         android:text="IdP Name"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_toStartOf="@+id/icon" />
 
     <TextView
         android:id="@+id/secondLine"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="IdP Distance"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="false"
-        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
         android:contentDescription="Logo"
-        android:maxWidth="100dp"
+        android:src="@drawable/ic_launcher"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="true"
+        android:layout_alignParentEnd="true"
         android:maxHeight="250dp"
-        android:src="@drawable/ic_launcher" />
+        android:maxWidth="100dp"/>
 
     <LinearLayout
         android:id="@+id/profiles"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/firstLine"
-        android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:layout_centerHorizontal="true">
 
     </LinearLayout>
 

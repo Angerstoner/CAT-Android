@@ -22,25 +22,25 @@ import android.widget.Switch;
 
 public class ViewProfiles extends Activity {
 
+    SimpleCursorAdapter mAdapter;
     static ProfileAdapter adapter;
     static SCAD scad = null;
     static ListView listView = null;
-    SimpleCursorAdapter mAdapter;
     Switch switch_search;
-    String search = "";
-    private String searchText = "";
+    private String searchText="";
+    String search="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profiles);
-        listView = findViewById(R.id.list);
-        switch_search = findViewById(R.id.switch1);
+        listView = (ListView) findViewById(R.id.list);
+        switch_search = (Switch) findViewById(R.id.switch1);
         switch_search.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
+               boolean isChecked) {
+                if(isChecked){
                     AlertDialog.Builder builder = new AlertDialog.Builder(ViewProfiles.this);
                     builder.setTitle(getString(R.string.manual_search));
                     final EditText input = new EditText(ViewProfiles.this);
@@ -50,7 +50,7 @@ public class ViewProfiles extends Activity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             searchText = input.getText().toString();
-                            if (searchText.length() > 2) {
+                            if (searchText.length()>2) {
                                 search = searchText;
                                 if (search != null) search = search.trim();
                                 adapter.clear();
@@ -66,34 +66,36 @@ public class ViewProfiles extends Activity {
                         }
                     });
                     builder.show();
-                } else {
-                    search = "";
+                }else{
+                    search="";
                     adapter.clear();
                 }
 
             }
         });
-        scad = new SCAD(this, search);
+        scad = new SCAD(this,search);
         scad.execute();
         adapter = new ProfileAdapter(this, SCAD.IdPs);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
+            {
                 eduroamCAT.debug("Click in listview");
                 Intent download = new Intent(getApplicationContext(), EAPMetadata.class);
-                if (!adapter.getItem(position).profileRedirect.equals("0") && adapter.getItem(position).profileRedirect.length() > 0) {
-                    String url = adapter.getItem(position).profileRedirect;
-                    if (url.contains("http") == false)
-                        url = "http://" + url;
+                if (!adapter.getItem(position).profileRedirect.equals("0") && adapter.getItem(position).profileRedirect.length()>0) {
+                    String url=adapter.getItem(position).profileRedirect;
+                    if (url.contains("http")==false)
+                        url="http://"+url;
                     Uri uri = Uri.parse(url);
                     //launch browser for a redirect
-                    eduroamCAT.debug("redirect click:" + adapter.getItem(position).title + " and " + uri.toString());
-                    if (url.length() > 0) {
+                    eduroamCAT.debug("redirect click:"+adapter.getItem(position).title +" and "+uri.toString());
+                    if (url.toString().length()>0) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(browserIntent);
                     }
-                } else {
+                }
+                else {
                     if (adapter.getItem(position).profileID.size() == 1) {
                         if (adapter.getItem(position).download.length() > 0) {
                             Uri uri = Uri.parse(adapter.getItem(position).download);
@@ -119,7 +121,7 @@ public class ViewProfiles extends Activity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
         eduroamCAT.debug("resumed viewProfiles");
-        if (adapter.getCount() > 0) {
+        if (adapter.getCount()>0) {
             adapter.notifyDataSetChanged();
         }
     }
@@ -127,8 +129,9 @@ public class ViewProfiles extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SCAD.MAX_DISTANCE = 30000;
+        SCAD.MAX_DISTANCE=30000;
     }
 
 
-}
+
+    }
